@@ -1,15 +1,33 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Pull Secrets'
+description: 'Pulls secrets from from Hashicorp Key Vault '
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  url:
+    description: 'enterprise vault service endpoint'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  namespace:
+    description: 'labs namespace'
+    default: 'ushi/innovate'
+    required: true 
+  approleId:
+    description: 'approleId'
+    required: true
+  secretId:
+    description: 'secretId'
+    required: true
+  secrets:
+    description: 'version'
+    required: true
+  
+# outputs:
+#   es-auth-token: # id of output
+#     description: 'elasticsearch auth token'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.url }}
+    - ${{ inputs.namespace }}
+    - ${{ inputs.approleId }}
+    - ${{ inputs.secretId }}
+    - ${{ inputs.secrets }}

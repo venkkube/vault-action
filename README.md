@@ -1,12 +1,20 @@
-# Hello world docker action
+# Hashicorp Key vault action
 
-This action prints "Hello World" to the log or "Hello" + the name of a person to greet. To learn how this action was built, see "[Creating a Docker container action](https://help.github.com/en/articles/creating-a-docker-container-action)" in the GitHub Help documentation.
+This action pulls the secrets from the enterise key vault server for the namespace. It creates action step outputs for the secrets given in the inputs. The outputs can be 
+
+Currently it supports only approle login mode.
 
 ## Inputs
+Here are all the inputs available through `with`:
 
-### `who-to-greet`
+| Input               | Description                                                                                                                                          | Default | Required |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------- |
+| `url`               | The URL for the vault endpoint                                                                                                                       |         | ✔        |
+| `secrets`           | A semicolon-separated list of secrets to retrieve. These will automatically be converted to environmental variable keys. See README for more details |         | ✔        |
+| `namespace`         | The Vault namespace from which to query secrets. Vault Enterprise only, unset by default                                                             |         |     ✔      |
+| `approleId`            | The Role Id for App Role authentication                                                                                                       |         |     ✔      |
+| `secretId`          | The Secret Id for App Role authentication                                                                                                            |         |      ✔     |
 
-**Required** The name of the person to greet. Default `"World"`.
 
 ## Outputs
 
@@ -17,7 +25,13 @@ The time we greeted you.
 ## Example usage
 
 ```yaml
-uses: actions/hello-world-docker-action@master
+uses: actions/key-vault-action@master
 with:
-  who-to-greet: 'Mona the Octocat'
+  url: 'http://your-org-vault-server:port'
+  namespace: 'namespace'
+  approleId: 'role-id'
+  secretId: 'secret-id'
+  secrets: |
+    path-to-secret secret-key1 ;
+    path-to-secret secret-key2
 ```

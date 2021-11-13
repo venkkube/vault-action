@@ -1,8 +1,11 @@
-# Container image that runs your code
-FROM alpine:3.10
+FROM python:3.9
 
-# Copies your code file from your action repository to the filesystem path `/` of the container
-COPY entrypoint.sh /entrypoint.sh
+ENV VAULT_ADDR ""
+ENV VAULT_NAMESPACE ushi/innovate
 
-# Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/entrypoint.sh"]
+COPY get_secrets.py /get_secrets.py
+COPY requirements.txt /requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+ENTRYPOINT ["python3", "/get_secrets.py" ]
