@@ -12,7 +12,7 @@ def vault_client():
         logging.info(f"authenticated with vault")
     return vc
 
-def get_secret(vc, secret_path, secret_key):
+def getSecret(vc, secret_path, secret_key):
 
     # see if the path exists
     if not path_exists(vc, secret_path):
@@ -36,20 +36,20 @@ def path_exists(vc,path):
         return False
     return True
 
-def get_secrets(vc, input_secrets):
+def parseSecrets(vc, input_secrets):
     sec_list = input_secrets.split(";")
     for secret in sec_list:
         secret_info = secret.split(" ")
         secret_key = secret_info[1].strip()
         secret_path = secret_info[0].strip()
-        secret = get_secret(vc,secret_path, secret_key)
+        secret = getSecret(vc,secret_path, secret_key)
         subprocess.run(["echo", "::set-output name="+secret_key+"::"+secret], check=True)
 
 def main(): 
     os.environ["MOUNT_POINT"] = "secrets"
     input_secrets = os.environ["INPUT_SECRETS"]
     vc = vault_client()
-    get_secrets(vc,input_secrets)
+    parseSecrets(vc,input_secrets)
    
 if __name__ == "__main__":
     start_time = time.time()

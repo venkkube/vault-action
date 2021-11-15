@@ -18,9 +18,7 @@ Here are all the inputs available through `with`:
 
 ## Outputs
 
-### `Outputs created for all secert keys given in the input `secrets` list`
-
-The time we greeted you.
+`Outputs created for all secert keys given in the input `secrets` list`
 
 ## Example usage
 
