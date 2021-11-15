@@ -28,7 +28,7 @@ def get_secret(vc, secret_path, secret_key):
 def path_exists(vc,path):
     # see if the path exists
     try:
-        data = vc.secrets.kv.v2.read_secret_version(
+        vc.secrets.kv.v2.read_secret_version(
             path=path,mount_point=os.environ["MOUNT_POINT"]
         )
     # if not, it will throw an exception
