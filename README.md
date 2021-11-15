@@ -10,7 +10,7 @@ Here are all the inputs available through `with`:
 | Input               | Description                                                                                                                                          | Default | Required |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------- |
 | `url`               | The URL for the vault endpoint                                                                                                                       |         | ✔        |
-| `secrets`           | A semicolon-separated list of secrets to retrieve. These will automatically be converted to environmental variable keys. See README for more details |         | ✔        |
+| `secrets`           | A semicolon-separated list of secrets to retrieve. These will automatically be converted to output variable keys. See README for more details |         | ✔        |
 | `namespace`         | The Vault namespace from which to query secrets. Vault Enterprise only, unset by default                                                             |         |     ✔      |
 | `approleId`            | The Role Id for App Role authentication                                                                                                       |         |     ✔      |
 | `secretId`          | The Secret Id for App Role authentication                                                                                                            |         |      ✔     |
@@ -18,7 +18,7 @@ Here are all the inputs available through `with`:
 
 ## Outputs
 
-### `time`
+### `Outputs created for all secert keys given in the input `secrets` list`
 
 The time we greeted you.
 
