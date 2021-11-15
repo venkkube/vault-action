@@ -12,7 +12,7 @@ def vault_client():
         logging.info(f"authenticated with vault")
     return vc
 
-def getSecret(vc, secret_path, secret_key):
+def get_secret(vc, secret_path, secret_key):
 
     # see if the path exists
     if not path_exists(vc, secret_path):
@@ -28,28 +28,32 @@ def getSecret(vc, secret_path, secret_key):
 def path_exists(vc,path):
     # see if the path exists
     try:
-        data = vc.secrets.kv.v2.read_secret_version(
+        vc.secrets.kv.v2.read_secret_version(
             path=path,mount_point=os.environ["MOUNT_POINT"]
         )
     # if not, it will throw an exception
     except hvac.exceptions.InvalidPath:
         return False
-    return True
 
-def parseSecrets(vc, input_secrets):
-    sec_list = input_secrets.split(";")
-    for secret in sec_list:
-        secret_info = secret.split(" ")
-        secret_key = secret_info[1].strip()
-        secret_path = secret_info[0].strip()
-        secret = getSecret(vc,secret_path, secret_key)
-        subprocess.run(["echo", "::set-output name="+secret_key+"::"+secret], check=True)
+def parse_secrets(vc, input_secrets):
+    try:
+        sec_list = input_secrets.split(";")
+        for secret in sec_list:
+            secret_info = secret.split(" ")
+            secret_key = secret_info[1].strip()
+            secret_path = secret_info[0].strip()
+            secret = get_secret(vc,secret_path, secret_key)
+            subprocess.run(["echo", "::set-output name="+secret_key+"::"+secret], check=True)
+    except ValueError:
+        logging.info(f"secrets given in the input is not in expected format")
+        sys.exit(1)
+
 
 def main(): 
     os.environ["MOUNT_POINT"] = "secrets"
     input_secrets = os.environ["INPUT_SECRETS"]
     vc = vault_client()
-    parseSecrets(vc,input_secrets)
+    parse_secrets(vc,input_secrets)
    
 if __name__ == "__main__":
     start_time = time.time()

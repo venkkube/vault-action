@@ -1,8 +1,5 @@
 FROM python:3.9
 
-ENV VAULT_ADDR ""
-ENV VAULT_NAMESPACE ushi/innovate
-
 COPY get_secrets.py /get_secrets.py
 COPY requirements.txt /requirements.txt
 
