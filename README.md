@@ -1,8 +1,8 @@
 # Hashicorp Key vault action
 
-This action pulls the secrets from the enterise key vault server for the namespace. It creates action step outputs for the secrets given in the inputs. The outputs can be 
+This action pulls the secrets from the enterise key vault server for the namespace. It creates action output for the each secrets given in the inputs. 
 
-Currently it supports only approle login mode.
+Currently it supports only Approle auth/login mode.
 
 ## Inputs
 Here are all the inputs available through `with`:
