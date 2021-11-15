@@ -35,6 +35,8 @@ def path_exists(vc,path):
     except hvac.exceptions.InvalidPath:
         return False
 
+    return True
+
 def parse_secrets(vc, input_secrets):
     try:
         sec_list = input_secrets.split(";")
