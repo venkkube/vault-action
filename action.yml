@@ -6,7 +6,7 @@ inputs:
     required: true
   namespace:
     description: 'labs namespace'
-    default: 'ushi/innovate'
+    default: ''
     required: true 
   approleId:
     description: 'approleId'
